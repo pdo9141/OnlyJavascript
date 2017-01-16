@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<h1>Only Javascript</h1>
+
+<script type="text/javascript">
+(function () {
+
+    // Use the curly braces on the right
+    var createGoodCar = function () {
+        return {
+            ok: true
+        }
+    };
+
+    // Silent error, you get undefined
+    var createBadCar = function () {
+        return
+        {
+            ok: true
+        }
+    };
+
+    var goodCar = createGoodCar();
+    var badCar = createBadCar();
+
+    console.log("Good car: " + goodCar);
+    console.log("Bad car: " + badCar);
+    
+}());
+</script>
+
+<script type="text/javascript">
+(function () {
+
+    var stooge = {
+        "firstName": "Jerome",
+        "lastName": "Howard",
+        "fullName": function () {
+            return this.firstName + " " + this.lastName;
+        }
+    };
+
+    var name;
+    for (name in stooge) {
+        if (typeof stooge[name] !== 'function') {
+            console.log(name + ': ' + stooge[name]);
+        }
+    }
+
+}());
+</script>
+
+<script type="text/javascript">
+    var myApp = {};
+
+    myApp.stooge1 = {
+        firstName: "Emma",
+        lastName: "Do"
+    };
+
+    myApp.stooge2 = {
+        "first-name": "Mason",
+        "last-name": "Do"
+    };
+
+    console.log(myApp.stooge1.firstName);
+    console.log(myApp.stooge1.lastName);
+    console.log(myApp.stooge2["first-name"]);
+    console.log(myApp.stooge2["last-name"]);
+
+</script>
+
+</body>
+</html>
