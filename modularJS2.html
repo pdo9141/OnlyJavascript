@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+        body {
+            background: #fafafa;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+        }
+
+        .hero-unit {
+            margin: 20px auto 0 auto;
+            width: 300px;
+            font-size: 12px;
+            font-weight: 200;
+            line-height: 20px;
+            background-color: #eee;
+            border-radius: 6px;
+            padding: 10px 20px;
+        }
+
+            .hero-unit h1 {
+                font-size: 60px;
+                line-height: 1;
+                letter-spacing: -1px;
+            }
+
+        .browsehappy {
+            margin: 0.2em 0;
+            background: #ccc;
+            color: #000;
+            padding: 0.2em 0;
+        }
+
+        input {
+            border: 1px solid #999;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        button {
+            zoom: 2;
+            background-color: #999;
+            border: 1px solid #999;
+            border-radius: 4px;
+            padding: 1px 5px;
+        }
+
+            button.active {
+                background-color: rgb(165, 227, 158);
+            }
+
+        #peopleModule {
+            text-align: center;
+        }
+
+            #peopleModule ul {
+                padding: 0;
+            }
+
+            #peopleModule li {
+                display: inline-block;
+                list-style-type: none;
+                background: #98ec9b;
+                border-radius: 5px;
+                padding: 3px 8px;
+                margin: 5px 0;
+                width: 200px;
+                opacity: 0.8;
+                transition: opacity 0.3s;
+            }
+
+                #peopleModule li:hover {
+                    opacity: 1;
+                }
+
+                #peopleModule li span {
+                    display: inline-block;
+                    width: 160px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                #peopleModule li i {
+                    cursor: pointer;
+                    font-weight: bold;
+                    float: right;
+                    font-style: normal;
+                    background: #666;
+                    padding: 2px 4px;
+                    font-size: 60%;
+                    color: white;
+                    border-radius: 20px;
+                    opacity: 0.7;
+                    transition: opacity 0.3s;
+                    margin-top: 3px;
+                }
+
+                    #peopleModule li i:hover {
+                        opacity: 1;
+                    }
+    </style>
+
+</head>
+<body>
+    <h1>Modular Javascript</h1>
+
+    <!--
+    **************************************************************************
+    * Ground Rules:
+    *     1) self contained modules
+    *     2) everything to do with my module is in my module
+    *     3) no global variables
+    *     4) if a module manages more than one thing it should be split up
+    *     5) separation of concerns
+    *     6) DRY code: don't repeat yourself
+    *     7) efficient DOM usage (very few $(selections))
+    *     8) no memory leaks (all events MUST be unbound!)
+    **************************************************************************
+    -->
+
+    <div id="peopleModule">
+        <h1>People</h1>
+        <input placeholder="name" type="text" />
+        <button id="addPerson">Add Person</button>
+        <ul id="people">
+            <script id="people-template" type="text/template">
+                {{#people}}
+                <li>
+                    <span>{{.}}</span>
+                    <i class="del">X</i>
+                </li>
+                {{/people}}
+            </script>
+
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
+    <script type="text/javascript">
+(function () {
+
+    var people = {
+        people: ['Will', 'Steve'],
+        init: function () {
+            this.cacheDom();
+            this.bindEvents();
+            this.render();
+        },
+        cacheDom: function () {
+            this.$el = $('#peopleModule');
+            this.$button = this.$el.find('button');
+            this.$input = this.$el.find('input');
+            this.$ul = this.$el.find('ul');
+            this.template = this.$el.find('#people-template').html();
+        },
+        bindEvents: function () {
+            this.$button.on('click', this.addPerson.bind(this));
+            this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+        },
+        render: function () {
+            var data = {
+                people: this.people,
+            };
+            this.$ul.html(Mustache.render(this.template, data));
+        },
+        addPerson: function () {
+            this.people.push(this.$input.val());
+            this.render();
+            this.$input.val('');
+        },
+        deletePerson: function (event) {
+            var $remove = $(event.target).closest('li');
+            var i = this.$ul.find('li').index($remove);
+
+            this.people.splice(i, 1);
+            this.render();
+        }
+    };
+
+    people.init();
+
+}());
+    </script>
+
+</body>
+</html>
