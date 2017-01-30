@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Map Reduce</h1>
+    <script src="test.json"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+
+        // Old way of sum of ages
+        var ageSum = 0;
+        for (var i = 0; i < jsonData.length; i++) {
+            ageSum += jsonData[i].age;
+        }
+
+        console.log("Sum of age old way: " + ageSum);
+
+        // Using reduce to sum ages, default 0
+        var newAgeSum = jsonData.reduce(function (all, item, index) {
+            all += item.age;
+            return all;
+        }, 0);
+
+        console.log("Sum of age using reduce: " + newAgeSum);
+
+        // Using reduce to return an object, default object
+        var newObj = jsonData.reduce(function (all, item, index) {
+            all[item.email] = item.name;
+            return all;
+        }, {});
+
+        console.log("New object keyed by email: " + newObj);
+
+        // Using reduce to return an object filtered by female gender
+        var newObjOnlyFemale = jsonData.reduce(function (all, item, index) {
+            if (item.gender === "female")
+                all[item.email] = item.name;
+            return all;
+        }, {});
+
+        console.log("New female object keyed by email: " + newObjOnlyFemale);
+
+        // Using reduce to return an object with gender arrays, default object with gender arrays
+        var newObjWithGenderArrays = jsonData.reduce(function (all, item, index) {
+            all[item.gender].push(item);
+            return all;
+        }, {male: [], female: []});
+
+        console.log("New object with gender arrays: " + newObjWithGenderArrays);
+
+        /************ Additional useful array functions include
+        * 1) filter
+        * 2) some
+        * 3) any
+        * 4) map
+        * 5) forEach
+        *******************************************************/
+
+        // Using map to return 1 thing from source array, return length of new array has to be length of source array
+        var allAges = jsonData.map(function (item) { return item.age; });
+        console.log("New array with all ages: " + allAges);
+
+        var allFavoriteFruits = jsonData.map(function (item) { return item.favoriteFruit; });
+        console.log("New array with all favorite fruits: " + allFavoriteFruits);
+
+        var allIDs = jsonData.map(function (item) { return item._id; });
+        console.log("New array with all IDs: " + allIDs);
+
+    </script>
+
+</body>
+</html>
