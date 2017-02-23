@@ -11,6 +11,38 @@
 <script type="text/javascript">
 (function () {
 
+    // Explaining the call function
+    function Bicycle(speed, tirePressure) {
+        this.speed = speed;
+        this.tirePressure = tirePressure;
+        this.inflateTires = function () {
+            console.log(this.tirePressure);
+            this.tirePressure += 3;
+        }
+    }
+
+    var bicycle1 = new Bicycle(20, 25);
+    bicycle1.inflateTires();
+
+    var bicycle2 = new Bicycle(20, 25);
+    bicycle2.inflateTires();
+
+    function Mechanic(name) {
+        this.name = name;
+    }
+
+    var mike = new Mechanic("Phillip");
+    mike.inflateTires = bicycle1.inflateTires;
+    mike.inflateTires();                // this.tirePressure will be undefined since Mechanic doesn't have tirePressure
+    mike.inflateTires.call(bicycle1);   // works, this in this.tirePressure will refer to bicycle1
+    
+}());
+</script>
+
+
+<script type="text/javascript">
+(function () {
+
     // Use the curly braces on the right
     var createGoodCar = function () {
         return {
