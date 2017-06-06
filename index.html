@@ -4,9 +4,117 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 <h1>Only Javascript</h1>
+<div id="test"></div>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<div id="test4"></div>
+<div id="test5"></div>
+<div id="test6"></div>
+<div id="test7"></div>
+<div id="test8"></div>
+<div id="test9"></div>
+<div id="test10"></div>
+<div id="test11"></div>
+<div id="test12"></div>
+
+<script type="text/javascript">
+(function () {
+    //https://www.w3schools.com/jsref/jsref_obj_array.asp
+    //var points = new Array();         // Bad
+    //var points = [];                  // Good 
+
+
+    var cars = ["Saab", "Volvo", "BMW"];
+    //var colors = new Array("Red", "White", "Blue");
+
+    cars.push("Honda");
+    cars[cars.length] = "Mercedes";
+    for (i = 0; i < cars.length; i++) {
+        console.log(cars[i]);
+    }
+
+    console.log(Array.isArray(cars));
+    console.log(cars instanceof Array);
+
+    $("#test").html(cars.join(","));
+    cars.pop();
+    $("#test1").html(cars.join(","));
+
+    //The shift() method removes the first array element and "shifts" all other elements to a lower index.
+    //The shift() method returns the string that was "shifted out":
+    var shifted = cars.shift();
+    console.log(shifted);
+    $("#test2").html(cars.join(","));
+
+    //The unshift() method adds a new element to an array (at the beginning), and "unshifts" older elements:
+    cars.unshift("Acura");
+    $("#test3").html(cars.join(","));
+
+    var myGirls = ["Cecilie", "Lone"];
+    var myBoys = ["Emil", "Tobias", "Linus"];
+    var myChildren = myGirls.concat(myBoys);
+    $("#test4").html(myChildren.join(","));
+
+    var arr1 = ["Cecilie", "Lone"];
+    var arr2 = ["Emil", "Tobias", "Linus"];
+    var arr3 = ["Robin", "Morgan"];
+    var allKids = arr1.concat(arr2, arr3);
+    $("#test5").html(allKids.join(","));
+
+    allKids.sort();
+    $("#test6").html(allKids.join(","));
+
+    allKids.reverse();
+    $("#test7").html(allKids.join(","));
+
+    var points = [40, 100, 1, 5, 25, 10];
+    points.sort(function (a, b) { return a - b });
+    $("#test8").html(points.join(","));
+
+    points = [40, 100, 1, 5, 25, 10];
+    points.sort(function (a, b) { return b - a });
+    $("#test9").html(points.join(","));
+
+
+    var ages = [32, 33, 16, 40];
+
+    function checkAdult(age) {
+        return age >= 18;
+    }
+
+    if (ages.every(checkAdult))
+        $("#test10").html("Every one is 18");
+    else
+        $("#test10").html("Every one is not 18");
+
+    if (ages.some(checkAdult))
+        $("#test11").html("Some are 18");    
+    
+    var allEighteen = ages.filter(checkAdult);
+    $("#test12").html(allEighteen.join(","));
+
+    function printAge(item, index) {
+        console.log(item);
+    }
+    ages.forEach(printAge);
+
+    var results = $.grep(ages, function (element, index) {
+        return element === 40;
+    });
+
+    if (results)
+        results.forEach(printAge);
+
+
+
+    console.log("########################################");
+}());
+</script>
 
 <script type="text/javascript">
 (function () {
