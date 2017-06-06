@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .important {
+            font-weight: bold;
+            font-size: xx-large;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <form>
+        <h1>jQuery</h1>
+        <p id="p1">p1</p>
+        <p id="p2">p2</p>
+
+        <h2>Header 2</h2>
+        <div class="intro">
+            <p>p3: My name is Phillip <span id="middleName">Hung</span> Do</p>
+            <p id="myAddress">p4: I live in Garden Grove</p>
+            <div>I have many friends</div>
+            <p id="myWelcome">p5: Hi there</p>
+        </div>
+
+        <h3>Header 3</h3>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Animal</td>
+            </tr>
+            <tr>
+                <td>Mickey</td>
+                <td>Mouse</td>
+            </tr>
+            <tr>
+                <td>Goofey</td>
+                <td>Dog</td>
+            </tr>
+            <tr>
+                <td>Daisy</td>
+                <td>Duck</td>
+            </tr>
+            <tr>
+                <td>Pluto</td>
+                <td>Dog</td>
+            </tr>
+        </table>
+        <div>
+            <p id="almostLastPz">p6</p>
+            <div>
+                <div>
+                    <p id="waldo" title="Here is Waldo">Here's Waldo</p>
+                </div>
+                <p id="lastPz">p8</p>
+            </div>
+        </div>
+        <p id="myFarewell">Bye Now</p>
+        <a href="http://www.google.com/" id="mainLnk">Google.com</a>
+        <span data-name="nameLabel">First Name:</span> <input type="text" data-name="nameProp" id="firstName" name="firstName" value="Phi" />
+        <span data-name="nameLabel">Middle Name:</span> <input type="text" data-name="nameProp" id="middleName" name="middleName" value="Hung" />
+        <span data-name="nameLabel">Last Name:</span> <input type="text" data-name="nameProp" id="lastName" name="lastName" value="Do" />      
+        
+        <p class="greetings now"><span>Hello</span>, how are you?</p>
+        <p class="greetings now">Me? I'm <span>good</span>.</p>
+        <div>Did you <span>eat</span> yet?</div>    
+        
+        <fieldset>
+            <span>span1</span><br />
+            <span>span2</span>
+            <div><span>span3</span></div>
+            <span>span4</span>
+        </fieldset>
+              
+        <button id="btn1">Click me1!</button>
+        <button id="btn2">Click me2!</button>
+    </form>
+
+    <script type="text/javascript">
+        //write page done loading function
+        //attach click event to p
+        //attach two events to p
+        //attach hover to link and log href attribute
+        //attach focus event to all input text elements and log value
+        //attach click event to span and log data-name value
+        //retrieve all data-name with value nameLabel, attach click event and log text
+        //change html of p1 ID
+        //set value of input with ID of middleName
+        //change value of input elements with data-name equals nameProp
+        //change css border of class or ID
+        //change css border of class and ID at the same time
+        //change css background-color of even TR rows
+        //change css background-color of all h1 and p 
+        //change css background-color of all headers
+        //change css background-color of all headers
+        //change css background-color of all elements with id attribute
+        //change css background-color of id equals something
+        //change css background-color of id not equals something
+        //change css background-color of all p tags with id not equals something
+        //change css background-color of all p tags with class equals something
+        //change css background-color of all id ending in something
+        //change css background-color of all id ending in something
+        //change css background-color of all id starting with something
+        //change css background-color of all id containing word
+        //change css background-color of all id containing string
+        //change css background-color of all title containing string
+        //change css background-color input, text, password, radio, checkbox, submit, reset, button, image, file, enabled, disabled, selected, checked
+        //change all span tags direct child of fieldset
+        //change all span tags descendants of fieldset
+
+        $(document).ready(function () {
+            /*
+            $("button").click(function () {
+                $(":text").each(function () {
+                    console.log($(this).val())
+                });
+                return false;
+            });
+            */
+
+            /*
+            $("#btn1").click(function () {
+                $(this).data("greeting", "Hello World");
+                return false;
+            });
+            $("#btn2").click(function () {
+                console.log($("button#btn1").data("greeting"));
+                return false;
+            });
+            */
+
+            //$("fieldset > span").css("background-color", "red");
+            //$("fieldset span").css("background-color", "red");
+
+            /*
+            $("p#p1").addClass("important blue");
+            $("p#p1").click(function () {
+                $(this).toggleClass("blue");
+            });
+
+            $("p").find("span").css({
+                "background-color": "orange",
+                "font-size": "200%"
+            })
+
+            $("p").click(function () {
+                //$(this).hide();
+            });
+
+            $("p").on("click", function () {
+                //$(this).hide();
+            });
+
+            $("p").on({
+                mouseover: function () {
+                    //console.log($(this).html());
+                },
+                click: function () {
+                    //console.log($(this).text());
+                }
+            });
+
+            $("a#mainLnk").hover(function () {
+                //console.log($(this).attr("href"));
+            });
+
+            $(":text").focus(function () {
+                //console.log($(this).val());
+            });
+
+            $("span").click(function () {
+                //console.log($(this).val());
+                //console.log($(this).data("name"));
+            });
+
+            $("[data-name=nameLabel]").on("click", function () {
+                //console.log($(this).text());
+            });
+            
+
+            $("#p1").html("<b>p1 got bolded</b>");
+            $("input#middleName").val("Captain Awesome");
+            */
+
+            //$("[data-name=nameProp]").val("Tester");
+
+            //$(".intro").css("border", "solid");
+            //$("#myAddress").css("background-color", "gray");
+            //$(".intro, #lastName").css("border", "solid");
+            //$("p:first").css("border", "solid");
+            //$("p:last").css("border", "solid");
+            //$("tr:even").css("background-color", "yellow");
+            //$("tr:odd").css("background-color", "yellow");
+            //$("p:first-child").css("background-color", "yellow");
+            //$("p:first-of-type").css("background-color", "yellow");
+            //$("p:last-child").css("background-color", "yellow");
+            //$("div > p").css("background-color", "yellow");
+            //$("div p").css("background-color", "yellow");
+            //$(":contains(Mickey)").css("background-color", "yellow");
+            //$("[id=middleName]").text("Awesome");
+            //$("[id=middleName]").html("CrazyCool");
+            //$("p[id!=waldo]").html("ChangeAllButMiddleName");
+            //$("p[id=waldo]").text("Found Waldo");
+            //$("[id$=Pz]").html("I end with Pz");
+            //$("[id^=my]").text("I start with Pz");
+            //$("[id*=as]").text("I contain as");
+            //$("[title~=Waldo]").text("I have title with as");
+            //$(":input")
+
+            /*
+            $("#Lastname")
+            $(".intro")
+            $(".intro, #Lastname")
+            $("h1")
+            $("h1, p")
+            $("p:first")
+            $("p:last")
+            $("tr:even")
+            $("tr:odd")
+            $("p:first-child")
+            $("p:first-of-type")
+            $("p:last-child")
+            $("p:last-of-type")
+            $("li:nth-child(1)")
+            $("li:nth-last-child(1)")
+            $("li:nth-of-type(2)")
+            $("li:nth-last-of-type(2)")
+            $("b:only-child")
+            $("h3:only-of-type")
+            $("div > p")
+            $("div p")
+            $("ul + h3")
+            $("ul ~ table")
+            $("ul li:eq(0)")
+            $("ul li:gt(0)")
+            $("ul li:lt(2)")
+            $(":header")
+            $(":header:not(h1)")
+            $(":animated")
+            $(":focus")
+            $(":contains(Duck)")
+            $("div:has(p)")
+            $(":empty")
+            $(":parent")
+            $("p:hidden")
+            $("table:visible")
+            $(":root")
+            $("p:lang(it)")
+            $("[id]")
+            $("[id=my-Address]")
+            All elements with an id attribute value equal to "my-Address"
+
+            $("p[id!=my-Address]")
+            All <p> elements without an id attribute value equal to "my-Address".
+
+            $("[id$=ess]")
+            All elements with an id attribute value ending with "ess"
+
+            $("[id|=my]")
+            $("[id^=L]")
+            All elements with an id attribute value starting with the letter "L"
+
+            $("[title~=beautiful]")
+            All elements with a title attribute value containing the word "beautiful"
+
+            $("[id*=s]")
+            All elements with an id attribute value containing the string "s"
+
+            $(":input")
+            $(":text")
+            $(":password")
+            $(":radio")
+            $(":checkbox")
+            $(":submit")
+            $(":reset")
+            $(":button")
+            $(":image")
+            $(":file")
+            $(":enabled")
+            $(":disabled")
+            $(":selected")
+            $(":checked")
+            $("*")
+            */
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        //write page done loading function
+        $(document).ready(function () {
+            //attach click event to p
+            //attach two events to p
+            //attach hover to link and log href attribute
+            //attach focus event to all input text elements and log value
+            //attach click event to span and log data-name value
+            //retrieve all data-name with value nameLabel, attach click event and log text
+            //change html of p1 ID
+            //set value of input with ID of middleName
+            //change value of input elements with data-name equals nameProp            
+            //change css border of class or ID
+            //change css border of class and ID at the same time
+            //change css background-color of even TR rows
+            //change css background-color of all h1 and p 
+            //change css background-color of all headers                
+            //change css background-color of all elements with id attribute
+            //change css background-color of id equals something
+            //change css background-color of id not equals something
+            //change css background-color of all p tags with id not equals something
+            //change css background-color of all p tags with class equals something
+            //change css background-color of all id ending in something
+            //change css background-color of all id starting with something
+            //change css background-color of all id containing word
+            //change css background-color of all id containing string
+            //change css background-color of all title containing string
+            //change css background-color input, text, password, radio, checkbox, submit, reset, button, image, file, enabled, disabled, selected, checked
+            //change all span tags direct child of fieldset
+            //change all span tags descendants of fieldset
+        });
+
+    </script>
+
+</body>
+</html>
