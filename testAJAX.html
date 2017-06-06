@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+    <script type="text/javascript">
+        var settings = {};
+        $.ajax(settings);
+
+        $.ajax({
+            type: "POST",
+            url: "https://www.integration.com/api/Orders",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer xxxxx',
+                'RequestVerificationToken': 'Token'
+            },
+            success: function (data) {
+                var realData = (data.hasOwnProperty("d")) ? data.d : data;
+                var newArr = JSON && JSON.parse(realData) || $.parseJSON(realData);
+            },
+            beforeSend: function () { },
+            complete: function () { },
+            error: function () { }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "https://www.integration.com/api/Orders",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer xxxxx',
+                'RequestVerificationToken': 'Token'
+            }
+        })
+        .done(function() { alert("success"); })
+        .fail(function() { alert("error"); })
+        .always(function() { alert("complete"); });
+
+        var myPromise = $.ajax({
+            type: "POST",
+            url: "https://www.integration.com/api/Orders",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer xxxxx',
+                'RequestVerificationToken': 'Token'
+            }
+        })
+        
+        myPromise.done(function() { alert("success"); })
+        myPromise.fail(function() { alert("error"); })
+        myPromise.always(function() { alert("complete"); });
+
+        var requestOne = utils.callApi('GET', 'https://www.integration.com/api/Orders')
+        var requestTwo = utils.callApi('GET', 'https://www.integration.com/api/Products')
+        $.when(requestOne, requestTwo).then(function(data1, data2))
+        {
+            var orders = data1[0];
+            var products = data2[0];
+            $.each(orders, function (index, order){
+                console.log(order);
+            });
+        })
+        .catch(function (jqXHR) {
+            //log
+        });
+
+        $.ajax({url: "/ServerResource.txt"}).then([successFunction1, successFunction2, successFunction3], [errorFunction1, errorFunction2]);
+ 
+        //same as
+ 
+        var jqxhr = $.ajax({
+            url: "/ServerResource.txt"
+        });
+  
+        jqxhr.done(successFunction1);
+        jqxhr.done(successFunction2);
+        jqxhr.done(successFunction3);
+        jqxhr.fail(errorFunction1);
+        jqxhr.fail(errorFunction2);
+
+
+        //Chaining then() Functions
+        var promise = $.ajax("/myServerScript1");
+  
+        function getStuff() {
+            return $.ajax("/myServerScript2");
+        }
+  
+        promise.then(getStuff).then(function(myServerScript2Data){
+            // Do something with myServerScript2Data
+        });
+
+        //Combining Promises
+        var jqxhr1 = $.ajax("/ServerResource1.txt");
+        var jqxhr2 = $.ajax("/ServerResource2.txt");
+  
+        $.when(jqxhr1, jqxhr2).done(function(jqxhr1, jqxhr2) {
+            // Handle both XHR objects
+            alert("all complete");
+        });
+
+        //Making Your Own Deferred Process
+        var timer;
+        $('#result').html('waiting…');
+  
+        var promise = process();
+        promise.done(function() {
+            $('#result').html('done.');
+        });
+        promise.progress(function() {
+            $('#result').html($('#result').html() + '.');
+        });
+ 
+        function process() {
+            var deferred = $.Deferred();
+ 
+            timer = setInterval(function() {
+                deferred.notify();
+            }, 1000);
+   
+            setTimeout(function() {
+                clearInterval(timer);
+                deferred.resolve();
+            }, 10000);
+   
+            return deferred.promise();
+        }
+
+        //It can also be written using the then() method:
+        var timer;
+ 
+        (function process() {
+            $('#result').html('waiting…');
+            var deferred = $.Deferred();
+     
+            timer = setInterval(function() {
+                deferred.notify();
+            }, 1000);
+   
+            setTimeout(function() {
+                clearInterval(timer);
+                deferred.resolve();
+            }, 10000);
+   
+            return deferred.promise();
+        })().then(function() { $('#result').html('done.'); },
+                  null,
+                  function() { $('#result').html($('#result').html() + '.'); });
+
+
+    </script>
+</body>
+</html>
