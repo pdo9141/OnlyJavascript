@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Chrome Dev Tools</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Chrome Dev Tools</h1>
+<div id="test"></div>
+
+<ol>
+    <li>Use "debugger" in script as breakpoint</li>
+    <li>$('a') === document.querySelector('a') &nbsp;<sup>returns first element match</sup></li>
+    <li>$$('a') === document.querySelectorAll('a') &nbsp;<sup>returns all matching elements</sup></li>
+    <li>Right click and perserve log upon navigation &nbsp;<sup>reload/refresh will persist logs</sup></li>
+    <li>Right click on element and select Break on (subtree modified, attributes modified, node removal) &nbsp;<sup>helps find out which JS is called on interaction with element</sup></li>
+    <li>document.body.contentEditable = true &nbsp;<sup>your HTML screen will be editable</sup></li>
+    <li>console.log('Window', window, 'Body', document.body) &nbsp;<sup>will log window and body objects along with labels</sup></li>
+    <li>$('#myInput') &nbsp;<sup>will log HTML output of element</sup></li>
+    <li>dir($('#myInput')) &nbsp;<sup>will log all properties of element</sup></li>
+    <li>getEventListeners($('#myInput')) &nbsp;<sup>will log event listeners for element</sup></li>
+    <li>monitorEvents($('#myInput')) &nbsp;<sup>will log all events attached to element when you interact with it</sup></li>
+    <li>monitorEvents($('#myInput'), ['click', 'blur']) &nbsp;<sup>will log click and blur events attached to element</sup></li>
+    <li>unmonitorEvents($('#myInput')) &nbsp;<sup>will unmonitor events</sup></li>
+    <li>console.time('myTime') and console.timeEnd('myTime')  &nbsp;<sup>capture elapsed time, use in code to benchmark functions etc.</sup></li>
+    <li>console.groupCollapsed('My Errors') and console.groupEnd() &nbsp;<sup>collapse/group your logs</sup></li>
+    <li>console.table(myArray) &nbsp;<sup>log a table view of array elements</sup></li>
+    <li>$_ &nbsp;<sup>access and use result of last expression</sup></li>
+    <li>clear() or ctrl + L &nbsp;<sup>clear the console log</sup></li>
+    <li>console.trace() &nbsp;<sup>get call stack at anytime</sup></li>
+    <li>console.count('fooed') &nbsp;<sup>logs count everytime called</sup></li>
+    <li>profile('myProfile') and profileEnd('myProfile') &nbsp;<sup>go to Profiles tab to see results</sup></li>
+    <li>inspect($('#myInput')) &nbsp;<sup>will highlight in Elements tab and in browser view</sup></li>
+    <li>$0 &nbsp;<sup>logs last selected element, $1 will log 2nd to last element etc. You can alternatively add ID to element and get it by ID</sup></li>
+    <li>ctrl + [minus] and ctrl + [plus] &nbsp;<sup>will zoom in/out browser view while in console</sup></li>
+    <li>arrow up and arrow down &nbsp;<sup>displays last console commands</sup></li>
+    <li>copy(document.body.innerText) &nbsp;<sup>copy body text to clipboard</sup></li>
+    <li>edit JS directly in Scripts tab &nbsp;<sup>add logs to help debug perhaps</sup></li>
+    <li>click on pause button on lower left to debug exception &nbsp;<sup>this will take to directly to JS exception</sup></li>
+    <li>drag and drop elements &nbsp;<sup>do this in Elements tab to shift elements and see display</sup></li>
+    <li>In settings, there's a checkbox to Log XMLHttpRequests &nbsp;<sup></sup></li>
+    <li>https://ericduran.github.io/chromeHAR/ &nbsp;<sup>save and drop your HAR results here</sup></li>
+    <li> &nbsp;<sup></sup></li>
+</ol>
+    
+<script type="text/javascript">
+(function () {
+
+}());
+</script>
+
+</body>
+</html>
