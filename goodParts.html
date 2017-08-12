@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Javscript The Good Parts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Javscript The Good Parts</h1>
+    <section>
+        <h2>Chapter 4: Functions</h2>
+        <ol>
+            <li>Objects (functions are objects) produced from object literals are linked to Object.prototype. Function objects are linked to Function.prototype (which is itself linked to Object.prototype)</li>
+            <li>Functions can be stored in variables, objects, and arrays</li>
+            <li>Functions can be passed as arguments to functions, and functions can be returned from functions</li>
+            <li>When invoked, in addition to the declared parameters, every function receives two additional parameters: this and arguments</li>
+            <li>Arguments is not really an array. It is an array-like object. arguments has a length property, but it lacks all of the array methods</li>
+            <li>There is no runtime error when the number of arguments and the number of parameters do not match. If there are too many argument values, the extra argument values will be ignored. If there are too few argument values, the undefined value will be substituted for the missing values</li>
+            <li>The apply method lets us construct an array of arguments to use to invoke a function. It also lets us choose the value of this. The apply method takes two parameters. The first is the value that should be bound to this. The second is an array of parameters.</li>
+            <li>A function always returns a value. If the return value is not specified, then undefined is returned.</li>
+            <li>Augmenting Function.prototype, we can make a method available to all functions</li>
+            <li>Because of the dynamic nature of JavaScript’s prototypal inheritance, all values are immediately endowed with the new methods, even values that were created before the methods were created</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </section>
+    <div id="container"></div>    
+
+<script type="text/javascript">
+
+(function () {
+    var containerDom = $('#container');
+
+    function printDiv(value, prefix) {
+        return '<div>' + (prefix ? '<strong>' + prefix + ': </strong>' : '') + value + '</div>';
+    }
+
+    // Example of an anonymous function
+    var add = function (a, b) {
+        return a + b;
+    }; 
+
+    // Create myObject. It has a value and an increment 
+    // method. The increment method takes an optional 
+    // parameter. If the argument is not a number, then 1 
+    // is used as the default.
+    var myObject = {
+        name: 'default',
+        value: 0,
+        increment: function (inc) {
+            this.value += typeof inc === 'number' ? inc : 1;
+        },
+        getValue: function () {
+            return this.value;
+        }
+    };
+    myObject.increment();
+    containerDom.append(printDiv(myObject.value));    // 1
+
+    myObject.increment(2);
+    containerDom.append(printDiv(myObject.value));    // 3 
+
+    // Augment myObject with a double method.
+    myObject.double = function () {
+        var that = this;    // Workaround.
+
+        var helper = function () {
+            that.value = add(that.value, that.value);
+        };
+
+        helper();    // Invoke helper as a function. 
+    };
+
+    // Invoke double as a method.
+    myObject.double();
+    containerDom.append(printDiv(myObject.getValue())); // 6
+
+    // Create a constructor function called Quo. 
+    // It makes an object with a status property.
+    var Quo = function (string) {
+        this.status = string;
+    };
+
+    // Give all instances of Quo a public method
+    // called get_status.
+    Quo.prototype.get_status = function () {
+        return this.status;
+    };
+
+    // Make an instance of Quo.
+    // Use of this style of constructor functions is not recommended
+    var myQuo = new Quo("confused");
+    document.writeln(myQuo.get_status());  // confused 
+
+    // Make an array of 2 numbers and add them.
+    var array = [3, 4];
+    var sum = add.apply(null, array);    // sum is 7
+    document.writeln(printDiv(sum, 'Sum is'));
+
+    // Make an object with a status member.
+    var statusObject = {
+        status: 'A-OK'
+    };
+
+    // statusObject does not inherit from Quo.prototype, 
+    // but we can invoke the get_status method on 
+    // statusObject even though statusObject does not have 
+    // a get_status method.
+    var status = Quo.prototype.get_status.apply(statusObject);    // status is 'A-OK'
+    document.writeln(printDiv(status, 'Status is'));
+
+    // Make a function that adds a lot of stuff.
+    // Note that defining the variable sum inside of 
+    // the function does not interfere with the sum 
+    // defined outside of the function. The function 
+    // only sees the inner one.
+    var sum = function () {
+        var i, sum = 0;
+        for (i = 0; i < arguments.length; i += 1) {
+            sum += arguments[i];
+        } return sum;
+    };
+
+    document.writeln(printDiv(sum(4, 8, 15, 16, 23, 42), 'Using arguments array-like object without providing parameters in signature')); // 108 
+
+    // Exception example
+    var add = function (a, b) {
+        if (typeof a !== 'number' || typeof b !== 'number') {
+            throw {
+                name: 'TypeError',
+                message: 'add needs numbers'
+            };
+        }
+        return a + b;
+    } 
+
+    // Make a try_it function that calls the new add function incorrectly.
+    var try_it = function () {
+        try {
+            add("seven");
+        } catch (e) {
+            document.writeln(e.name + ': ' + e.message);
+        }
+    }
+    try_it(); 
+
+    // Augmenting Function.prototype, we can make a method available to all functions
+    Function.prototype.method = function (name, func) {
+        this.prototype[name] = func;
+        return this;
+    }; 
+
+    String.method('trim', function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    });
+    document.writeln(printDiv('"' + "   neat   ".trim() + '"', 'Using method prototype')); 
+
+    // The prototypes of the basic types are public structures, so care must be taken when mixing libraries.
+    // One defensive technique is to add a method only if the method is known to be missing
+    // Add a method conditionally.
+    Function.prototype.method = function (name, func) {
+        if (!this.prototype[name]) {
+            this.prototype[name] = func;
+        }
+    }; 
+
+    // The hasOwnProperty method does not look at the prototype chain
+    document.writeln(printDiv(myObject.hasOwnProperty('increment'), 'hasOwnProperty for increment'));
+    document.writeln(printDiv(myObject.hasOwnProperty('decrement'), 'hasOwnProperty for decrement'));
+
+    // The for in statement can loop over all of the property names in an object. The enumeration will include all of the properties—including functions 
+    // and prototype properties that you might not be interested in—so it is necessary to filter out the values you don’t want.
+    // The most common filters are the hasOwnProperty method and using typeof to exclude functions
+    var name;
+    for (name in myObject) {
+        if (typeof myObject[name] !== 'function') {
+            document.writeln(name + ': ' + myObject[name]);
+        }
+    } 
+
+    // Define a walk_the_DOM function that visits every 
+    // node of the tree in HTML source order, starting 
+    // from some given node. It invokes a function, 
+    // passing it each node in turn. walk_the_DOM calls 
+    // itself to process each of the child nodes.
+    var walk_the_DOM = function walk(node, func) {
+        func(node); node = node.firstChild;
+        while (node) {
+            walk(node, func);
+            node = node.nextSibling;
+        }
+    };
+
+    // Define a getElementsByAttribute function. It 
+    // takes an attribute name string and an optional 
+    // matching value. It calls walk_the_DOM, passing it a 
+    // function that looks for an attribute name in the 
+    // node. The matching nodes are accumulated in a 
+    // results array.
+    var getElementsByAttribute = function (att, value) {
+        var results = [];
+        walk_the_DOM(document.body, function (node) {
+            var actual = node.nodeType === 1 && node.getAttribute(att);
+            if (typeof actual === 'string' && (actual === value || typeof value !== 'string')) {
+                results.push(node);
+            }
+        });
+        return results;
+    }; 
+
+    // Make a factorial function with tail 
+    // recursion. It is tail recursive because 
+    // it returns the result of calling itself.
+    // JavaScript does not currently optimize this form.
+    var factorial = function factorial(i, a) {
+        a = a || 1;
+        if (i < 2) {
+            return a;
+        }
+        return factorial(i - 1, a * i);
+    };
+    document.writeln(printDiv(factorial(4), 'Recursive factorial result'));    // 24
+
+}());
+
+</script>
+
+</body>
+</html>
