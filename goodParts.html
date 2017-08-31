@@ -235,6 +235,166 @@
     };
     document.writeln(printDiv(factorial(4), 'Recursive factorial result'));    // 24
 
+    // Because of closures, "value" is a private variable, only increment and getValue functions are public
+    // We are not assigning a function to myObject. We are assigning the result of invoking that function. 
+    // Notice the ()on the last line. The function returns an object containing two methods, 
+    // and those methods continue to enjoy the privilege of access to the value variable
+    var myObject = function () {
+        var value = 0;
+        return {
+            increment: function (inc) {
+                value += typeof inc === 'number' ? inc : 1;
+            },
+            getValue: function () {
+                return value;
+            }
+        };
+    }();
+
+    // Create a maker function called quo. It makes an 
+    // object with a get_status method and a private status property.
+    // This quo function is designed to be used without the new prefix, so the name is not capitalized
+    var quo = function (status) {
+        return {
+            get_status: function () {
+                return status;
+            }
+        };
+    };
+    // Make an instance of quo.
+    var myQuo = quo("amazed");
+    document.writeln(myQuo.get_status());
+
+    // Define a function that sets a DOM node's color 
+    // to yellow and then fades it to white.
+    var fade = function (node) {
+        var level = 1;
+        var step = function () {
+            var hex = level.toString(16);
+            node.style.backgroundColor = '#FFFF' + hex + hex;
+            if (level < 15) {
+                level += 1;
+                setTimeout(step, 100);
+            }
+        }; setTimeout(step, 100);
+    };
+    fade(document.body);
+
+    // Bad Example, make a function that assigns event handler functions to an array of nodes the wrong way. 
+    // When you click on a node, an alert box is supposed to display the ordinal of the node. 
+    // But it always displays the number of nodes instead.
+    // The add_the_handlers function was intended to give each handler a unique number (i). It fails because the handler functions are bound to the variable i, 
+    // not the value of the variable i at the time the function was made
+    var add_the_handlers = function (nodes) {
+        var i;
+        for (i = 0; i < nodes.length; i += 1) {
+            nodes[i].onclick = function (e) {
+                alert(i);
+            };
+        }
+    };
+
+    // Good example, make a function that assigns event handler functions to an array of nodes the right way. 
+    // When you click on a node, an alert box will display the ordinal of the node.
+    // Now, instead of assigning a function to onclick, we define a function and immediately invoke it, passing in i. 
+    // That function will return an event handler function that is bound to the value of i that was passed in, not to the i defined in add_the_ handlers
+    var add_the_handlers = function (nodes) {
+        var i;
+        for (i = 0; i < nodes.length; i += 1) {
+            nodes[i].onclick = function (i) {
+                return function (e) {
+                    alert(e);
+                };
+            }(i);
+        }
+    };
+
+    // We can use functions and closure to make modules. A module is a function or object that presents an interface but that hides its state and implementation
+    // By using functions to produce modules, we can almost completely eliminate our use of global variables, thereby mitigating one of JavaScript’s worst features
+    // If we passed seqer.gensym to a third party’s function, that function would be able to generate unique strings, but would be unable to change the prefix or seq
+    var serial_maker = function () {
+        // Produce an object that produces unique strings. A 
+        // unique string is made up of two parts: a prefix 
+        // and a sequence number. The object comes with 
+        // methods for setting the prefix and sequence
+        // number, and a gensym method that produces unique strings.
+        var prefix = '';    
+        var seq = 0;    
+        return {        
+            set_prefix: function (p) {            
+                prefix = String(p);        
+            },        
+            set_seq: function (s) {            
+                seq = s;        
+            },        
+            gensym: function () {            
+                var result = prefix + seq;            
+                seq += 1;            
+                return result;        
+            }    
+        }; 
+    };
+
+    var seqer = serial_maker(); 
+    seqer.set_prefix = ('Q');
+    seqer.set_seq = (1000);
+    var unique = seqer.gensym();    // unique is "Q1000" 
+
+    // Cascade Some methods do not have a return value. For example, it is typical for methods that set or change the state of an object to return nothing. 
+    // If we have those methods return this instead of undefined, we can enable cascades
+    // In a cascade, we can call many methods on the same object in sequence in a single statement
+    getElement('myBoxDiv')
+        .move(350, 150)
+        .width(100)
+        .height(100)
+        .color('red')
+        .border('10px outset')
+        .padding('4px')
+        .appendText("Please stand by")
+        .on('mousedown', function (m) {
+            this.startDrag(m, this.getNinth(m));
+        })
+        .on('mousemove', 'drag')
+        .on('mouseup', 'stopDrag')
+        .later(2000, function () {
+            this.color('yellow')
+                .setHTML("What hath God wraught?")
+                .slide(400, 40, 200, 200);
+        }).tip('This box is resizeable');
+
+    // Currying allows us to produce a new function by combining a function and an argument.
+    // add1 is a function that was created by passing 1 to add’s curry method. The add1 function adds 1 to its argument. 
+    //JavaScript does not have a curry method, but we can fix that by augmenting Function.prototype:
+    var add1 = add.curry(1);
+    document.writeln(add1(6));    // 7 
+
+    Function.method('curry', function () {
+        var slice = Array.prototype.slice,
+            args = slice.apply(arguments),
+            that = this;
+
+        return function () {
+            return that.apply(null, args.concat(slice.apply(arguments)));
+        };
+    });
+
+    // Functions can use objects to remember the results of previous operations, 
+    // making it possible to avoid unnecessary work. This optimization is called memoization
+    // We will keep our memoized results in a memo array that we can hide in a closure. 
+    // When our function is called, it first looks to see if it already knows the result
+    var fibonacci = function () {
+        var memo = [0, 1];
+        var fib = function (n) {
+            var result = memo[n];
+            if (typeof result !== 'number') {
+                result = fib(n - 1) + fib(n - 2);
+                memo[n] = result;
+            } return result;
+        }; return fib;
+    }();
+
+    // Chapter 5 Inheritance
+
 }());
 
 </script>
