@@ -21,6 +21,28 @@
             <li>A function always returns a value. If the return value is not specified, then undefined is returned.</li>
             <li>Augmenting Function.prototype, we can make a method available to all functions</li>
             <li>Because of the dynamic nature of JavaScript’s prototypal inheritance, all values are immediately endowed with the new methods, even values that were created before the methods were created</li>
+            <li>There are four patterns of invocation in JavaScript: the method invocation pattern, the function invocation pattern, the constructor invocation pattern, and the apply invocation pattern</li>
+            <li>The Method Invocation Pattern: When a function is stored as a property of an object, we call it a method. When a method is invoked, this is bound to that object.</li>
+            <li>The Function Invocation Pattern: When a function is not the property of an object, then it is invoked as a function. When a function is invoked with this pattern, this is bound to the global object.</li>
+            <li>
+                The Constructor Invocation Pattern: If a function is invoked with the new prefix, then a new object will be created with a hidden link to the value of the function’s prototype member, and this will be bound to that new object. Use of this style of constructor functions is not recommended
+                var Quo = function (string) { this.status = string; };
+                Quo.prototype.get_status = function () { return this.status; };
+
+                // Make an instance of Quo.
+                var myQuo = new Quo("confused");
+                document.writeln(myQuo.get_status());  // confused
+            </li>
+            <li>
+                The Apply Invocation Pattern: The apply method lets us construct an array of arguments to use to invoke a function. It also lets us choose the value of this. The apply method takes two parameters. The first is the value that should be bound to this. The second is an array of parameters.
+                // Make an array of 2 numbers and add them.
+                var array = [3, 4]; var sum = add.apply(null, array);    // sum is 7
+            </li>
+        </ol>
+        <h2>Chapter 5: Inheritance</h2>
+        <ol>
+            <li></li>
+            <li></li>
             <li></li>
             <li></li>
             <li></li>

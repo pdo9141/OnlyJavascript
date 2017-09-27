@@ -20,4 +20,4 @@
 18) You can create a single global variable that can be a container for your application, 
 	e.g., var myApp = {};
 
-CHAPTER 4
+CHAPTER 5
