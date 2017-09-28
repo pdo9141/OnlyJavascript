@@ -41,22 +41,12 @@
         </ol>
         <h2>Chapter 5: Inheritance</h2>
         <ol>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Cat.prototype = new Mammal()</li>
+            <li>var myCat2 = Object.create(myMammal);</li>
+            <li>var that = mammal(spec);</li>
+        </ol>
+        <h2>Chapter 6: Arrays</h2>
+        <ol>
             <li></li>
         </ol>
     </section>
@@ -91,10 +81,10 @@
         }
     };
     myObject.increment();
-    containerDom.append(printDiv(myObject.value));    // 1
+    //containerDom.append(printDiv(myObject.value));    // 1
 
     myObject.increment(2);
-    containerDom.append(printDiv(myObject.value));    // 3 
+    //containerDom.append(printDiv(myObject.value));    // 3 
 
     // Augment myObject with a double method.
     myObject.double = function () {
@@ -109,7 +99,7 @@
 
     // Invoke double as a method.
     myObject.double();
-    containerDom.append(printDiv(myObject.getValue())); // 6
+    //containerDom.append(printDiv(myObject.getValue())); // 6
 
     // Create a constructor function called Quo. 
     // It makes an object with a status property.
@@ -126,12 +116,12 @@
     // Make an instance of Quo.
     // Use of this style of constructor functions is not recommended
     var myQuo = new Quo("confused");
-    document.writeln(myQuo.get_status());  // confused 
+    //document.writeln(myQuo.get_status());  // confused 
 
     // Make an array of 2 numbers and add them.
     var array = [3, 4];
     var sum = add.apply(null, array);    // sum is 7
-    document.writeln(printDiv(sum, 'Sum is'));
+    //document.writeln(printDiv(sum, 'Sum is'));
 
     // Make an object with a status member.
     var statusObject = {
@@ -143,7 +133,7 @@
     // statusObject even though statusObject does not have 
     // a get_status method.
     var status = Quo.prototype.get_status.apply(statusObject);    // status is 'A-OK'
-    document.writeln(printDiv(status, 'Status is'));
+    //document.writeln(printDiv(status, 'Status is'));
 
     // Make a function that adds a lot of stuff.
     // Note that defining the variable sum inside of 
@@ -157,7 +147,7 @@
         } return sum;
     };
 
-    document.writeln(printDiv(sum(4, 8, 15, 16, 23, 42), 'Using arguments array-like object without providing parameters in signature')); // 108 
+    //document.writeln(printDiv(sum(4, 8, 15, 16, 23, 42), 'Using arguments array-like object without providing parameters in signature')); // 108 
 
     // Exception example
     var add = function (a, b) {
@@ -189,7 +179,7 @@
     String.method('trim', function () {
         return this.replace(/^\s+|\s+$/g, '');
     });
-    document.writeln(printDiv('"' + "   neat   ".trim() + '"', 'Using method prototype')); 
+    //document.writeln(printDiv('"' + "   neat   ".trim() + '"', 'Using method prototype')); 
 
     // The prototypes of the basic types are public structures, so care must be taken when mixing libraries.
     // One defensive technique is to add a method only if the method is known to be missing
@@ -201,8 +191,8 @@
     }; 
 
     // The hasOwnProperty method does not look at the prototype chain
-    document.writeln(printDiv(myObject.hasOwnProperty('increment'), 'hasOwnProperty for increment'));
-    document.writeln(printDiv(myObject.hasOwnProperty('decrement'), 'hasOwnProperty for decrement'));
+    //document.writeln(printDiv(myObject.hasOwnProperty('increment'), 'hasOwnProperty for increment'));
+    //document.writeln(printDiv(myObject.hasOwnProperty('decrement'), 'hasOwnProperty for decrement'));
 
     // The for in statement can loop over all of the property names in an object. The enumeration will include all of the properties—including functions 
     // and prototype properties that you might not be interested in—so it is necessary to filter out the values you don’t want.
@@ -255,7 +245,7 @@
         }
         return factorial(i - 1, a * i);
     };
-    document.writeln(printDiv(factorial(4), 'Recursive factorial result'));    // 24
+    //document.writeln(printDiv(factorial(4), 'Recursive factorial result'));    // 24
 
     // Because of closures, "value" is a private variable, only increment and getValue functions are public
     // We are not assigning a function to myObject. We are assigning the result of invoking that function. 
@@ -285,7 +275,7 @@
     };
     // Make an instance of quo.
     var myQuo = quo("amazed");
-    document.writeln(myQuo.get_status());
+    //document.writeln(myQuo.get_status());
 
     // Define a function that sets a DOM node's color 
     // to yellow and then fades it to white.
@@ -365,30 +355,30 @@
     // Cascade Some methods do not have a return value. For example, it is typical for methods that set or change the state of an object to return nothing. 
     // If we have those methods return this instead of undefined, we can enable cascades
     // In a cascade, we can call many methods on the same object in sequence in a single statement
-    getElement('myBoxDiv')
-        .move(350, 150)
-        .width(100)
-        .height(100)
-        .color('red')
-        .border('10px outset')
-        .padding('4px')
-        .appendText("Please stand by")
-        .on('mousedown', function (m) {
-            this.startDrag(m, this.getNinth(m));
-        })
-        .on('mousemove', 'drag')
-        .on('mouseup', 'stopDrag')
-        .later(2000, function () {
-            this.color('yellow')
-                .setHTML("What hath God wraught?")
-                .slide(400, 40, 200, 200);
-        }).tip('This box is resizeable');
+    //getElement('myBoxDiv')
+    //    .move(350, 150)
+    //    .width(100)
+    //    .height(100)
+    //    .color('red')
+    //    .border('10px outset')
+    //    .padding('4px')
+    //    .appendText("Please stand by")
+    //    .on('mousedown', function (m) {
+    //        this.startDrag(m, this.getNinth(m));
+    //    })
+    //    .on('mousemove', 'drag')
+    //    .on('mouseup', 'stopDrag')
+    //    .later(2000, function () {
+    //        this.color('yellow')
+    //            .setHTML("What hath God wraught?")
+    //            .slide(400, 40, 200, 200);
+    //    }).tip('This box is resizeable');
 
     // Currying allows us to produce a new function by combining a function and an argument.
     // add1 is a function that was created by passing 1 to add’s curry method. The add1 function adds 1 to its argument. 
     //JavaScript does not have a curry method, but we can fix that by augmenting Function.prototype:
-    var add1 = add.curry(1);
-    document.writeln(add1(6));    // 7 
+    //var add1 = add.curry(1);
+    //document.writeln(add1(6));    // 7 
 
     Function.method('curry', function () {
         var slice = Array.prototype.slice,
@@ -416,6 +406,99 @@
     }();
 
     // Chapter 5 Inheritance
+    var Mammal = function (name) { this.name = name; };
+    Mammal.prototype.get_name = function () { return this.name; };
+    Mammal.prototype.says = function () { return this.saying || ''; }; 
+    var myMammal = new Mammal('Herb the Mammal');
+    var name = myMammal.get_name();
+    containerDom.append(printDiv(name, 'Inheritance test #1:'));
+
+    var Cat = function (name) { this.name = name; this.saying = 'meow'; };
+    Cat.prototype = new Mammal();
+    Cat.prototype.purr = function (n) { var i, s = ''; for (i = 0; i < n; i += 1) { if (s) { s += '-'; } s += 'r'; } return s; };
+    Cat.prototype.get_name = function () { return this.says() + ' ' + this.name + ' ' + this.says(); };
+    var myCat = new Cat('Henrietta');
+    var says = myCat.says(); // 'meow' 
+    var purr = myCat.purr(5); // 'r-r-r-r-r' 
+    var name = myCat.get_name(); // 'meow Henrietta meow'
+
+    var myMammal = {
+        name: 'Herb the Mammal',
+        get_name: function () {
+            return this.name;
+        },
+        says: function () {
+            return this.saying || '';
+        }
+    };
+
+    var myCat2 = Object.create(myMammal);
+    myCat2.name = 'Henrietta';
+    myCat2.saying = 'meow';
+    myCat2.purr = function (n) {
+        var i, s = '';
+        for (i = 0; i < n; i += 1) {
+            if (s) { s += '-'; } s += 'r';
+        }
+        return s;
+    };
+    myCat2.get_name = function () {
+        return this.says() + ' ' + this.name + ' ' + this.says();
+    }; 
+    containerDom.append(printDiv(myCat2.says(), 'Inheritance test #2:'));
+    containerDom.append(printDiv(myCat2.purr(5), 'Inheritance test #2:'));
+    containerDom.append(printDiv(myCat2.get_name(), 'Inheritance test #2:'));
+
+    var mammal = function (spec) {
+        var that = {};
+        that.get_name = function () {
+            return spec.name;
+        };
+        that.says = function () {
+            return spec.saying || '';
+        };
+        return that;
+    };
+    var myMammal = mammal({ name: 'Herb' }); 
+
+    var cat = function (spec) {
+        spec.saying = spec.saying || 'meow';
+        var that = mammal(spec);
+        that.purr = function (n) {
+            var i, s = '';
+            for (i = 0; i < n; i += 1) {
+                if (s) { s += '-'; } s += 'r';
+            }
+            return s;
+        };
+        that.get_name = function () {
+            return that.says() + ' ' + spec.name + ' ' + that.says();
+        };
+        return that;
+    }
+    var myCat = cat({ name: 'Henrietta' }); 
+
+    Object.method('superior', function (name) {
+        var that = this, method = that[name];
+        return function () {
+            return method.apply(that, arguments);
+        };
+    });
+
+    var coolcat = function (spec) {
+        var that = cat(spec), super_get_name = that.superior('get_name');
+        that.get_name = function (n) {
+            return 'like ' + super_get_name() + ' baby';
+        };
+        return that;
+    };
+    var myCoolCat = coolcat({ name: 'Bix' });
+    var name = myCoolCat.get_name(); // 'like meow Bix meow baby'
+    containerDom.append(printDiv(name, 'Inheritance test #3:'));
+
+    // Chapter 6 Arrays
+
+
 
 }());
 
