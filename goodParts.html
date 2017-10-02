@@ -497,6 +497,104 @@
     containerDom.append(printDiv(name, 'Inheritance test #3:'));
 
     // Chapter 6 Arrays
+    var numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    numbers.length = 3; // numbers is ['zero', 'one', 'two'] 
+    //console.log(numbers);
+
+    numbers[numbers.length] = 'shi'; // numbers is ['zero', 'one', 'two', 'shi'] 
+    //console.log(numbers);
+
+    numbers.push('go'); // numbers is ['zero', 'one', 'two', 'shi', 'go']
+    //console.log(numbers);
+
+    delete numbers[2]; // numbers is ['zero', 'one', undefined, 'shi', 'go']
+    //console.log(numbers);
+
+    numbers.splice(2, 1); // numbers is ['zero', 'one', 'shi', 'go'] 
+    //console.log(numbers);
+
+    // Array Check
+    var is_array = function (value) {
+        return value
+            && typeof value === 'object'
+            && value.constructor === Array;
+    }; 
+
+    // Better Array Check
+    var is_array = function (value) {
+        return value
+            && typeof value === 'object'
+            && typeof value.length === 'number'
+            && typeof value.splice === 'function'
+            && !(value.propertyIsEnumerable('length'));
+    }; 
+
+    Array.method('reduce', function (f, value) {
+        var i;
+        for (i = 0; i < this.length; i += 1) {
+            value = f(this[i], value);
+        }
+        return value;
+    }); 
+
+    // Create an array of numbers.
+    var data = [4, 8, 15, 16, 23, 42];
+
+    // Define two simple functions. One will add two // numbers. The other will multiply two numbers.
+    var add = function (a, b) { return a + b; };
+    var mult = function (a, b) { return a * b; };
+
+    // Invoke the data's reduce method, passing in the // add function.
+    var sum = data.reduce(add, 0);    // sum is 108
+    //console.log(sum);
+
+    // Invoke the reduce method again, this time passing // in the multiply function.
+    var product = data.reduce(mult, 1);    // product is 7418880 
+    //console.log(product);
+
+    // Give the data array a total function.
+    data.total = function () {
+        return this.reduce(add, 0);
+    };
+    total = data.total();    // total is 108 
+    //console.log(total);
+
+    Array.dim = function (dimension, initial) {
+        var a = [], i;
+        for (i = 0; i < dimension; i += 1) {
+            a[i] = initial;
+        }
+        return a;
+    };
+
+    // Make an array containing 10 zeros.
+    var myArray = Array.dim(10, 0); 
+
+    var matrix = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8]
+    ];
+    matrix[2][1]    // 7 
+
+    Array.matrix = function (m, n, initial) {
+        var a, i, j, mat = [];
+        for (i = 0; i < m; i += 1) {
+            a = [];
+            for (j = 0; j < n; j += 1) {
+                a[j] = initial;
+            }
+            mat[i] = a;
+        }
+        return mat;
+    };
+
+    // Make a 4 * 4 matrix filled with zeros.
+    var myMatrix = Array.matrix(4, 4, 0);
+    //document.writeln(myMatrix[3][3]);    // 0
+
+    // Chapter 7 Regular Expressions
+
 
 
 
