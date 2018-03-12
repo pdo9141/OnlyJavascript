@@ -594,9 +594,42 @@
     //document.writeln(myMatrix[3][3]);    // 0
 
     // Chapter 7 Regular Expressions
+    // Chapter 8 Methods
+    var a = ['a', 'b', 'c'];
+    var b = ['x', 'y', 'z'];
+    var c = a.concat(b, true);
+    // c is ['a', 'b', 'c', 'x', 'y', 'z', true]
 
+    var a = ['a', 'b', 'c'];
+    a.push('d');
+    var c = a.join(''); // c is 'abcd';
 
+    var a = ['a', 'b', 'c'];
+    var c = a.pop( ); // a is ['a', 'b'] & c is 'c'
 
+    //pop can be implemented like this:
+    Array.method('pop', function ( ) {
+        return this.splice(this.length - 1, 1)[0];
+    });
+
+    var a = ['a', 'b', 'c'];
+    var b = ['x', 'y', 'z'];
+    var c = a.push(b, true);
+    // a is ['a', 'b', 'c', ['x', 'y', 'z'], true]
+    // c is 5;
+    //push can be implemented like this:
+    Array.method('push', function ( ) {
+        this.splice.apply(
+            this,
+            [this.length, 0].
+            concat(Array.prototype.slice.apply(arguments)));
+        return this.length;
+    });
+
+    var a = ['a', 'b', 'c'];
+    var b = a.reverse( );
+    // both a and b are ['c', 'b', 'a']
+});
 
 }());
 
