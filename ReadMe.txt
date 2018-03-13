@@ -21,3 +21,4 @@
 	e.g., var myApp = {};
 
 CHAPTER 8
+reverse()
