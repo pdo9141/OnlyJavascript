@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AFC9CFB7-C26D-4BBB-B8D6-E7AE8C2B70A0}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		modularJS4.html = modularJS4.html
 		modularJS5.html = modularJS5.html
 		modularJS6.html = modularJS6.html
+		Mutations.html = Mutations.html
 		ReadMe.txt = ReadMe.txt
 		test.json = test.json
 		testAJAX.html = testAJAX.html
@@ -25,5 +26,8 @@ EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DED59889-ECB8-4E83-AD3C-1754AF372514}
 	EndGlobalSection
 EndGlobal
