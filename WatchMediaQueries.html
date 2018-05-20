@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<script>
+       
+// the callback function will be passed a boolean, which is true
+// if the media query matches and false otherwise
+function watchMediaQuery(query, callback) {
+  var matcher = window.matchMedia(query);
+
+  function executeCallback(result) {
+    if (typeof callback === 'function') {
+      callback(result.matches);
+    }
+  }
+
+  executeCallback(matcher);
+
+  if (typeof matcher.addListener !== 'undefined') {
+    matcher.addListener(executeCallback);
+  } else {
+    window.addEventListener('resize', function watchMediaQueryOnResize() {
+      executeCallback(matcher.matches);
+    });
+  }
+}
+
+</script>
+
+<script>
+
+/*    
+Trigger Callback when Media Queries Activate or Deactivate
+
+This function allows you to register a callback that will be triggered whenever the state of its corresponding media query either becomes active or inactive. The callback will be invoked with a single boolean parameter to indicate if the media query is now active or inactive.
+
+For example, to add/remove the "portrait" and "landscape" classes when the orientation changes, you could do the following:
+
+function modifyHtmlClass(className, enabled) {
+  var html = document.querySelector('html');
+  html.classList[enabled ? 'add' : 'remove'](className);
+}
+
+watchMediaQuery('(orientation: portrait)', function onPortraitMediaQuery(enabled) {
+  modifyHtmlClass('portrait', enabled);
+});
+
+watchMediaQuery('(orientation: landscape)', function onLandscapeMediaQuery(enabled) {
+  modifyHtmlClass('landscape', enabled);
+});
+This is backwards-compatible with older browsers by instead of adding a matchMedia listener simply watching for any window resizing.
+
+For greatest portability, I've only included an ES5 version of the function here.
+*/
+
+</script>
+
+</body>
+</html>
