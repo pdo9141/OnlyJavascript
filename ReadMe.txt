@@ -70,5 +70,10 @@ Awful Parts
 	if (my_value && typeof my_value === 'object' && typeof my_value.length === 'number' && !(my_value.propertyIsEnumerable('length')) {
 		// my_value is truly an array!
 	}
-
-	Continue on page 109
+08) Don't use == and !=, use === and !== instead
+09) Avoid using the with statement (shorthand when accessing properties of an object), its results are sometimes unpredictable
+10) Avoid using eval (slower, frustrates ESLint, compromises security like SQL injection), e.g., eval("myValue = myObject." + myKey + ";"); instead of myvalue = myObject[myKey];
+11) Avoid using switch fallthrough, add comments if intentional
+12) Add braces even if one liner, avoid ++,-- for readability
+13) Be more explicit and use function expression over function statement (you get hoisting)
+14) Avoid typed wrappers, new Boolean, new Number, new String, new Object, new Array
